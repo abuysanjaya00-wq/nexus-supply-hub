@@ -1,5 +1,5 @@
 import * as XLSX from "xlsx";
-import type { SupplyMode } from "@/lib/products";
+import type { SupplyMode } from "@/lib/products-shared";
 
 export type SpreadsheetProductInput = {
   image_url: string;
@@ -14,6 +14,9 @@ export type SpreadsheetProductInput = {
   category: string;
   supply_mode: SupplyMode;
   verified_chain_leader: boolean;
+  stock: number;
+  english_title: string;
+  tags: string;
 };
 
 /** Canonical DB field → accepted Chinese / English header aliases */
@@ -89,6 +92,15 @@ const HEADER_ALIASES: Record<keyof SpreadsheetProductInput | "price", string[]> 
       "认证",
       "链主认证",
     ],
+    stock: ["stock", "inventory", "qty", "库存", "库存数量"],
+    english_title: [
+      "english_title",
+      "english title",
+      "en_title",
+      "英文标题",
+      "listing title",
+    ],
+    tags: ["tags", "tag", "标签", "关键词"],
     price: ["price"],
   };
 
@@ -220,6 +232,15 @@ function mapRowsFromMatrix(matrix: unknown[][]): SpreadsheetProductInput[] {
         index.verified_chain_leader !== undefined
           ? parseVerified(row[index.verified_chain_leader])
           : true,
+      stock:
+        index.stock !== undefined
+          ? cellNumber(row[index.stock]) ?? 0
+          : 0,
+      english_title:
+        index.english_title !== undefined
+          ? cellString(row[index.english_title])
+          : "",
+      tags: index.tags !== undefined ? cellString(row[index.tags]) : "",
     });
   }
 

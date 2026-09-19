@@ -68,7 +68,7 @@ export default function LoginForm({ nextPath }: { nextPath: string }) {
       <div className="listing-atmosphere" aria-hidden="true" />
 
       <header className="listing-hero">
-        <p className="listing-kicker">NexusSupply Hub</p>
+        <p className="listing-kicker">Nexus Supply</p>
         <h1 className="listing-brand">{title}</h1>
         <p className="listing-lede">
           使用邮箱和密码进入产品大厅。未登录无法访问供应链目录与 AI 铺货工具。

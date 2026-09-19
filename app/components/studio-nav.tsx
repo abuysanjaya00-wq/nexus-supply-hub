@@ -5,9 +5,12 @@ import { usePathname } from "next/navigation";
 import SignOutButton from "./sign-out-button";
 
 const LINKS = [
-  { href: "/products", label: "Product Hall" },
-  { href: "/admin/upload", label: "CSV Import" },
-  { href: "/", label: "Marketing" },
+  { href: "/products", label: "选品中心" },
+  { href: "/reseller/stores", label: "店铺绑定" },
+  { href: "/reseller/orders/new", label: "代发下单" },
+  { href: "/warehouse/fulfillment", label: "仓库发货" },
+  { href: "/admin/supply", label: "供应链中台" },
+  { href: "/admin/upload", label: "商品导入" },
 ];
 
 export default function StudioNav() {
@@ -18,9 +21,7 @@ export default function StudioNav() {
       <div className="studio-nav-links">
         {LINKS.map((link) => {
           const active =
-            link.href === "/"
-              ? pathname === "/"
-              : pathname === link.href || pathname.startsWith(`${link.href}/`);
+            pathname === link.href || pathname.startsWith(`${link.href}/`);
           return (
             <Link
               key={link.href}

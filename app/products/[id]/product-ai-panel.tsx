@@ -55,7 +55,7 @@ export default function ProductAiPanel({ product }: { product: Product }) {
         ? [product.image_url]
         : [],
       usage:
-        "NexusSupply Hub Media & High-Res Photo Kit — use for Etsy / Shopify creative only.",
+        "Nexus Supply Media & High-Res Photo Kit — use for Etsy / Shopify creative only.",
     };
 
     const blob = new Blob([JSON.stringify(payload, null, 2)], {

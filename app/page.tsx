@@ -1,201 +1,220 @@
-﻿import Link from 'next/link';
-import { 
-  Building2, 
-  Boxes, 
-  Sparkles, 
-  ShieldCheck, 
-  Globe2, 
-  ArrowRight, 
-  MessageSquare
-} from 'lucide-react';
+﻿import Link from "next/link";
+import {
+  ArrowRight,
+  Copy,
+  PackageCheck,
+  ShoppingBag,
+  Store,
+  Truck,
+} from "lucide-react";
+import HomeBestsellers from "@/app/components/home-bestsellers";
+import { listChainLeaderBestsellers } from "@/lib/products";
 
-export default function Home() {
+const STEPS = [
+  {
+    step: "01",
+    title: "逛选品中心",
+    desc: "在链主之家精选爆款里挑 SKU，看清批发底价与供应模式。",
+    icon: ShoppingBag,
+    href: "/products",
+  },
+  {
+    step: "02",
+    title: "一键复制素材包",
+    desc: "复制英文标题、长描述、Tags 与主图链接，直接粘贴到 Etsy 草稿。",
+    icon: Copy,
+    href: "#bestsellers",
+  },
+  {
+    step: "03",
+    title: "绑定你的店铺",
+    desc: "连接 Etsy / Shopify / TikTok 等渠道，打通订单同步与单号回传。",
+    icon: Store,
+    href: "/reseller/stores",
+  },
+  {
+    step: "04",
+    title: "提交一件代发",
+    desc: "填写 C 端买家地址，仓库打包发货，物流单号自动回传。",
+    icon: Truck,
+    href: "/reseller/orders/new",
+  },
+];
+
+export default async function Home() {
+  const bestsellers = await listChainLeaderBestsellers(6);
+
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans">
-      
-      {/* 1. ??????(Navbar) */}
-      <header className="sticky top-0 z-50 bg-white/85 backdrop-blur-md border-b border-slate-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <div className="flex items-center space-x-3">
-            <div className="w-9 h-9 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold text-xl shadow-md">
+    <div className="flex min-h-screen flex-col bg-[#F6F0E8] text-[#2C241B]">
+      <header className="sticky top-0 z-50 border-b border-[#E5D6C5]/80 bg-[#FBF7F1]/90 backdrop-blur-md">
+        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
+          <Link href="/" className="flex items-center gap-2.5">
+            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#C45C26] font-[family-name:var(--font-display)] text-lg font-bold text-[#FFF8F2]">
               N
-            </div>
-            <span className="font-extrabold text-xl tracking-tight text-slate-900">
-              NexusSupply <span className="text-indigo-600">Hub</span>
             </span>
-          </div>
+            <span className="font-[family-name:var(--font-display)] text-xl font-semibold tracking-tight">
+              Nexus Supply
+            </span>
+          </Link>
 
-          <nav className="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-600">
-            <Link href="#features" className="hover:text-indigo-600 transition">Advantages</Link>
-            <Link href="#clusters" className="hover:text-indigo-600 transition">Industrial Clusters</Link>
-            <Link href="/products" className="hover:text-indigo-600 transition">Supply Catalog</Link>
-            <Link href="#contact" className="hover:text-indigo-600 transition">Partner With Us</Link>
+          <nav className="hidden items-center gap-7 text-sm font-medium text-[#6B5646] md:flex">
+            <a href="#steps" className="transition hover:text-[#C45C26]">
+              四步上手
+            </a>
+            <a href="#bestsellers" className="transition hover:text-[#C45C26]">
+              链主爆款
+            </a>
+            <Link href="/products" className="transition hover:text-[#C45C26]">
+              选品中心
+            </Link>
           </nav>
 
-          <div className="flex items-center space-x-4">
-            <Link 
-              href="/login" 
-              className="text-sm font-medium text-slate-700 hover:text-indigo-600 px-3 py-2 transition"
+          <div className="flex items-center gap-3">
+            <Link
+              href="/login"
+              className="hidden text-sm font-medium text-[#5C4636] transition hover:text-[#C45C26] sm:inline"
             >
-              Sign In
+              登录
             </Link>
-            <Link 
-              href="/products" 
-              className="bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold px-4 py-2 rounded-lg shadow-sm transition"
+            <Link
+              href="/products"
+              className="rounded-full bg-[#C45C26] px-4 py-2 text-sm font-semibold text-[#FFF8F2] shadow-sm transition hover:bg-[#A74A1C]"
             >
-              Explore Catalog
+              开始选品
             </Link>
           </div>
         </div>
       </header>
 
-      {/* 2. ???? (Hero Section) */}
-      <section className="relative overflow-hidden pt-20 pb-24 lg:pt-32 lg:pb-32 bg-gradient-to-b from-white via-indigo-50/30 to-slate-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-          
-          <div className="inline-flex items-center space-x-2 bg-indigo-50 border border-indigo-100 px-3.5 py-1.5 rounded-full text-indigo-700 text-xs font-semibold uppercase tracking-wider mb-6 shadow-sm">
-            <Sparkles className="w-4 h-4" />
-            <span>Direct Sourcing from Verified Industrial Leaders</span>
-          </div>
-
-          <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-slate-900 max-w-4xl mx-auto leading-tight">
-            Scale Your Global Store with <span className="text-indigo-600">Verified Supply Hub</span>
-          </h1>
-
-          <p className="mt-6 text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
-            Connect directly with China?s premier industrial clusters. Zero minimum order limitations for dropshippers, complete OEM/ODM solutions, and AI-powered listing tools.
+      <section className="relative overflow-hidden border-b border-[#E5D6C5]/70">
+        <div
+          className="pointer-events-none absolute inset-0 opacity-70"
+          aria-hidden
+          style={{
+            background:
+              "radial-gradient(ellipse 70% 55% at 15% 10%, #E8C4A8 0%, transparent 55%), radial-gradient(ellipse 50% 40% at 90% 20%, #D9CDB8 0%, transparent 50%), linear-gradient(165deg, #FBF7F1 0%, #F3EADF 55%, #EFE4D6 100%)",
+          }}
+        />
+        <div className="relative mx-auto max-w-6xl px-4 pb-16 pt-14 sm:px-6 sm:pb-20 sm:pt-20">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#C45C26]">
+            Etsy Dropshipping Mid-Office
           </p>
-
-          <div className="mt-10 flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4">
-            <Link 
-              href="/products" 
-              className="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-8 py-4 rounded-xl shadow-lg hover:shadow-indigo-200 transition flex items-center justify-center space-x-2 text-base"
+          <h1 className="mt-4 max-w-3xl font-[family-name:var(--font-display)] text-4xl font-semibold leading-[1.08] tracking-tight text-[#2C241B] sm:text-5xl lg:text-6xl">
+            Nexus Supply
+          </h1>
+          <p className="mt-5 max-w-xl text-base leading-relaxed text-[#6B5646] sm:text-lg">
+            专为海外 Etsy 卖家打造的一件代发中台：链主精选爆款、一键素材包、店铺绑定到仓配回传，四步走完铺货闭环。
+          </p>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <Link
+              href="/products"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#C45C26] px-7 py-3.5 text-sm font-semibold text-[#FFF8F2] shadow-[0_10px_28px_rgba(196,92,38,0.28)] transition hover:bg-[#A74A1C]"
             >
-              <span>Explore Supply Catalog</span>
-              <ArrowRight className="w-5 h-5" />
+              进入选品中心
+              <ArrowRight className="h-4 w-4" />
             </Link>
-            
-            <Link 
-              href="/products" 
-              className="w-full sm:w-auto bg-white hover:bg-slate-100 text-slate-800 font-semibold px-8 py-4 rounded-xl border border-slate-300 shadow-sm transition flex items-center justify-center space-x-2 text-base"
+            <a
+              href="#bestsellers"
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-[#D9C4AE] bg-[#FFFCFA]/80 px-7 py-3.5 text-sm font-semibold text-[#5C4636] transition hover:bg-white"
             >
-              <MessageSquare className="w-5 h-5 text-indigo-600" />
-              <span>Apply for Partnership</span>
+              <PackageCheck className="h-4 w-4 text-[#C45C26]" />
+              查看链主之家爆款
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section id="steps" className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
+        <div className="mb-10 max-w-2xl">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#C45C26]">
+            Foolproof flow
+          </p>
+          <h2 className="mt-2 font-[family-name:var(--font-display)] text-3xl font-semibold text-[#2C241B] sm:text-4xl">
+            四步傻瓜式引导
+          </h2>
+          <p className="mt-3 text-sm leading-relaxed text-[#6B5646] sm:text-base">
+            不需要复杂配置。跟着四步走：选品 → 复制素材 → 绑店 → 代发，当天就能上架测试。
+          </p>
+        </div>
+
+        <ol className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {STEPS.map((item) => {
+            const Icon = item.icon;
+            return (
+              <li key={item.step}>
+                <Link
+                  href={item.href}
+                  className="group flex h-full flex-col rounded-2xl border border-[#E5D6C5] bg-[#FFFCFA] p-5 shadow-[0_8px_30px_rgba(74,48,32,0.04)] transition hover:-translate-y-0.5 hover:border-[#D4B89A] hover:shadow-[0_14px_36px_rgba(74,48,32,0.08)]"
+                >
+                  <div className="mb-4 flex items-center justify-between">
+                    <span className="font-[family-name:var(--font-display)] text-2xl font-semibold text-[#C45C26]/80">
+                      {item.step}
+                    </span>
+                    <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#F3E6D8] text-[#C45C26] transition group-hover:bg-[#C45C26] group-hover:text-[#FFF8F2]">
+                      <Icon className="h-5 w-5" />
+                    </span>
+                  </div>
+                  <h3 className="text-base font-bold text-[#2C241B]">
+                    {item.title}
+                  </h3>
+                  <p className="mt-2 flex-1 text-sm leading-relaxed text-[#7A6554]">
+                    {item.desc}
+                  </p>
+                  <span className="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-[#C45C26]">
+                    去完成
+                    <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5" />
+                  </span>
+                </Link>
+              </li>
+            );
+          })}
+        </ol>
+      </section>
+
+      <section
+        id="bestsellers"
+        className="border-y border-[#E5D6C5]/80 bg-[#FBF7F1]"
+      >
+        <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
+          <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div className="max-w-2xl">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#C45C26]">
+                Chain Leader Home
+              </p>
+              <h2 className="mt-2 font-[family-name:var(--font-display)] text-3xl font-semibold text-[#2C241B] sm:text-4xl">
+                链主之家 · Etsy 爆款实时选品
+              </h2>
+              <p className="mt-3 text-sm leading-relaxed text-[#6B5646] sm:text-base">
+                实时读取已认证链主工厂的热销 SKU。点击即可复制完整铺货素材包（标题 / 描述 / Tags / 主图）。
+              </p>
+            </div>
+            <Link
+              href="/products"
+              className="inline-flex items-center gap-1 text-sm font-semibold text-[#C45C26] hover:text-[#A74A1C]"
+            >
+              查看全部选品
+              <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
 
-          {/* ????????*/}
-          <div className="mt-16 pt-10 border-t border-slate-200/80 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto text-slate-500 text-sm font-medium">
-            <div className="flex items-center justify-center space-x-2">
-              <ShieldCheck className="w-5 h-5 text-indigo-600" />
-              <span>100% Verified Factories</span>
-            </div>
-            <div className="flex items-center justify-center space-x-2">
-              <Boxes className="w-5 h-5 text-indigo-600" />
-              <span>Dropship & Bulk Ready</span>
-            </div>
-            <div className="flex items-center justify-center space-x-2">
-              <Globe2 className="w-5 h-5 text-indigo-600" />
-              <span>Global Fast Shipping</span>
-            </div>
-            <div className="flex items-center justify-center space-x-2">
-              <Sparkles className="w-5 h-5 text-indigo-600" />
-              <span>AI Listing Integration</span>
-            </div>
-          </div>
-
+          <HomeBestsellers products={bestsellers} />
         </div>
       </section>
 
-      {/* 3. ?????? (Why Choose Us) */}
-      <section id="features" className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
-              Why Global Sellers Choose NexusSupply
-            </h2>
-            <p className="mt-4 text-lg text-slate-600">
-              We bridge the gap between top-tier manufacturing clusters and modern e-commerce entrepreneurs.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-slate-50 border border-slate-200/80 p-8 rounded-2xl hover:shadow-md transition">
-              <div className="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-xl flex items-center justify-center mb-6">
-                <Building2 className="w-6 h-6" />
-              </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-3">Industrial Leaders Direct</h3>
-              <p className="text-slate-600 leading-relaxed">
-                Source directly from industry benchmarks and leading manufacturing clusters without multi-layer middlemen markup.
-              </p>
-            </div>
-
-            <div className="bg-slate-50 border border-slate-200/80 p-8 rounded-2xl hover:shadow-md transition">
-              <div className="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-xl flex items-center justify-center mb-6">
-                <Boxes className="w-6 h-6" />
-              </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-3">Zero MOQ Dropshipping</h3>
-              <p className="text-slate-600 leading-relaxed">
-                Test products instantly with 1-piece minimum order quantities, or scale into full custom OEM/ODM production runs.
-              </p>
-            </div>
-
-            <div className="bg-slate-50 border border-slate-200/80 p-8 rounded-2xl hover:shadow-md transition">
-              <div className="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-xl flex items-center justify-center mb-6">
-                <Sparkles className="w-6 h-6" />
-              </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-3">AI-Powered Listing</h3>
-              <p className="text-slate-600 leading-relaxed">
-                Transform raw product data into high-converting Etsy, Amazon, or Shopify listings instantly with our built-in AI tools.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 4. ??????? (Industrial Clusters) */}
-      <section id="clusters" className="py-20 bg-slate-50 border-t border-slate-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
-            <div>
-              <h2 className="text-3xl font-bold tracking-tight text-slate-900">Featured Industrial Clusters</h2>
-              <p className="mt-2 text-slate-600">Explore our rigorously selected manufacturing sectors.</p>
-            </div>
-            <Link href="/products" className="mt-4 md:mt-0 text-indigo-600 font-semibold hover:text-indigo-700 flex items-center space-x-1">
-              <span>View All Categories</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {['Smart Home & Living', 'Eco-Friendly Goods', 'Advanced Tech & Gadgets', 'Custom OEM Solutions'].map((cluster, idx) => (
-              <div key={idx} className="group bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-lg transition cursor-pointer">
-                <div className="h-40 bg-indigo-50 rounded-xl mb-4 flex items-center justify-center text-indigo-400 font-medium group-hover:bg-indigo-100 transition">
-                  [ Cluster Image {idx + 1} ]
-                </div>
-                <h3 className="font-bold text-slate-900 text-lg mb-1">{cluster}</h3>
-                <p className="text-sm text-slate-500">Verified Industrial Leaders & Direct Supply</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 5. ???? (Footer) */}
-      <footer className="bg-slate-900 text-slate-400 py-12 mt-auto">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between">
-          <div className="flex items-center space-x-3 mb-4 md:mb-0">
-            <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold">
+      <footer className="mt-auto border-t border-[#E5D6C5] bg-[#2C241B] py-10 text-[#C9B8A6]">
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-4 sm:flex-row sm:px-6">
+          <div className="flex items-center gap-2">
+            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#C45C26] text-sm font-bold text-[#FFF8F2]">
               N
-            </div>
-            <span className="text-white font-bold tracking-tight">NexusSupply Hub</span>
+            </span>
+            <span className="font-semibold text-[#F6F0E8]">Nexus Supply</span>
           </div>
           <p className="text-sm">
-            ? {new Date().getFullYear()} NexusSupply Hub. Empowering Global Cross-Border E-Commerce.
+            © {new Date().getFullYear()} Nexus Supply · Built for Etsy
+            dropshippers
           </p>
         </div>
       </footer>
-
     </div>
   );
 }

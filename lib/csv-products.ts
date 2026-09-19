@@ -1,4 +1,4 @@
-import type { SupplyMode } from "@/lib/products";
+import type { SupplyMode } from "@/lib/products-shared";
 import {
   parseProductsFromCsvText,
   type SpreadsheetProductInput,

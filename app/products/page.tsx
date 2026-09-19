@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import Link from "next/link";
-import { Boxes, Upload } from "lucide-react";
+import { Boxes, Leaf } from "lucide-react";
 import SignOutButton from "@/app/components/sign-out-button";
 import {
   listCategories,
@@ -14,6 +14,15 @@ type Search = {
   category?: string;
   mode?: string;
 };
+
+const NAV = [
+  { href: "/products", label: "选品中心" },
+  { href: "/reseller/stores", label: "店铺绑定" },
+  { href: "/reseller/orders/new", label: "代发下单" },
+  { href: "/warehouse/fulfillment", label: "仓库发货" },
+  { href: "/admin/supply", label: "供应链中台" },
+  { href: "/admin/upload", label: "商品导入" },
+];
 
 export default async function ProductsPage({
   searchParams,
@@ -42,86 +51,101 @@ export default async function ProductsPage({
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900">
-      <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/90 backdrop-blur">
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-3">
-            <Link href="/" className="flex items-center gap-2">
-              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-600 text-sm font-bold text-white">
+    <div className="min-h-screen bg-[#F6F0E8] text-[#2C241B]">
+      <header className="sticky top-0 z-40 border-b border-[#E5D6C5]/90 bg-[#FBF7F1]/92 backdrop-blur">
+        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+          <div className="flex min-w-0 items-center gap-3">
+            <Link href="/" className="flex shrink-0 items-center gap-2">
+              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#C45C26] text-sm font-bold text-[#FFF8F2]">
                 N
               </span>
-              <span className="font-bold tracking-tight">
-                NexusSupply <span className="text-indigo-600">Hub</span>
+              <span className="hidden font-[family-name:var(--font-display)] font-semibold tracking-tight sm:inline">
+                Nexus Supply
               </span>
             </Link>
-            <span className="hidden text-slate-300 sm:inline">/</span>
-            <span className="hidden text-sm font-medium text-slate-500 sm:inline">
-              Supply Catalog
-            </span>
+            <nav className="hidden items-center gap-1 md:flex">
+              {NAV.map((link) => {
+                const active = link.href === "/products";
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className={`rounded-lg px-2.5 py-1.5 text-xs font-semibold transition ${
+                      active
+                        ? "bg-[#F3E6D8] text-[#C45C26]"
+                        : "text-[#6B5646] hover:bg-[#F3E6D8]/70 hover:text-[#2C241B]"
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                );
+              })}
+            </nav>
           </div>
-          <div className="flex items-center gap-3">
+          <SignOutButton />
+        </div>
+        <div className="flex gap-1 overflow-x-auto border-t border-[#EFE4D8] px-4 py-2 md:hidden">
+          {NAV.map((link) => (
             <Link
-              href="/admin/upload"
-              className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 px-3 py-1.5 text-xs font-semibold text-slate-700 hover:border-indigo-200 hover:text-indigo-700"
+              key={link.href}
+              href={link.href}
+              className="shrink-0 rounded-full bg-[#F3E6D8] px-3 py-1 text-[11px] font-semibold text-[#5C4636]"
             >
-              <Upload className="h-3.5 w-3.5" />
-              CSV Import
+              {link.label}
             </Link>
-            <SignOutButton />
-          </div>
+          ))}
         </div>
       </header>
 
       <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+        <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-indigo-600">
-              Verified industrial supply
+            <p className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-[#C45C26]">
+              <Leaf className="h-3.5 w-3.5" />
+              Etsy earth catalog
             </p>
-            <h1 className="mt-2 text-3xl font-bold tracking-tight text-slate-900">
-              Product Hall
+            <h1 className="mt-2 font-[family-name:var(--font-display)] text-3xl font-semibold tracking-tight text-[#2C241B] sm:text-4xl">
+              选品中心
             </h1>
-            <p className="mt-2 max-w-2xl text-sm text-slate-600">
-              Filter by category and supply mode, then open any SKU to generate
-              an Etsy-ready listing with AI.
+            <p className="mt-2 max-w-2xl text-sm leading-relaxed text-[#6B5646]">
+              温暖大地色工作台：筛选链主爆款，一键复制刊登素材，或直接跳转一件代发下单。
             </p>
           </div>
-          <div className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-1.5 text-xs font-medium text-slate-600 ring-1 ring-slate-200">
-            <Boxes className="h-3.5 w-3.5 text-indigo-600" />
+          <div className="inline-flex items-center gap-2 rounded-full border border-[#E5D6C5] bg-[#FFFCFA] px-3 py-1.5 text-xs font-medium text-[#6B5646]">
+            <Boxes className="h-3.5 w-3.5 text-[#C45C26]" />
             {products.length} SKUs in view
           </div>
         </div>
 
         <Suspense
           fallback={
-            <div className="mb-6 h-28 animate-pulse rounded-2xl bg-white" />
+            <div className="mb-6 h-28 animate-pulse rounded-2xl bg-[#F3E6D8]/60" />
           }
         >
           <ProductFilters categories={categories} />
         </Suspense>
 
         {error ? (
-          <div className="mt-6 rounded-2xl border border-rose-200 bg-rose-50 p-5 text-sm text-rose-800">
-            <p className="font-semibold">Catalog unavailable</p>
+          <div className="mt-6 rounded-2xl border border-[#E8B4A2] bg-[#FDF2EC] p-5 text-sm text-[#8B3E28]">
+            <p className="font-semibold">选品目录暂时不可用</p>
             <p className="mt-1">{error}</p>
-            <p className="mt-3 text-rose-700">
-              Run <code className="font-mono">sql/phase5-nexus-products.sql</code>{" "}
-              in Supabase, then confirm you are logged in.
+            <p className="mt-2 text-[#A65A42]">
+              请确认已登录，并已执行 phase5 / phase6 SQL。
             </p>
           </div>
         ) : products.length === 0 ? (
-          <div className="mt-6 rounded-2xl border border-dashed border-slate-300 bg-white p-12 text-center">
-            <p className="text-base font-semibold text-slate-800">
-              No products match these filters
+          <div className="mt-6 rounded-2xl border border-dashed border-[#D9C4AE] bg-[#FFFCFA] p-12 text-center">
+            <p className="text-base font-semibold text-[#2C241B]">
+              没有匹配的商品
             </p>
-            <p className="mt-2 text-sm text-slate-500">
-              Reset filters or import a CSV from the admin uploader.
+            <p className="mt-2 text-sm text-[#7A6554]">
+              试试重置筛选，或前往后台导入供应链表格。
             </p>
             <Link
               href="/admin/upload"
-              className="mt-5 inline-flex rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white"
+              className="mt-5 inline-flex rounded-full bg-[#C45C26] px-4 py-2 text-sm font-semibold text-[#FFF8F2]"
             >
-              Open CSV Import
+              去导入商品
             </Link>
           </div>
         ) : (

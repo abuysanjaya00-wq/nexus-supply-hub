@@ -139,8 +139,7 @@ export default function AdminUploadPage() {
             <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-emerald-600" />
             <div className="text-sm">
               <p>
-                成功导入 <strong>{successCount}</strong> 条商品到 NexusSupply
-                Hub。
+                成功导入 <strong>{successCount}</strong> 条商品到 Nexus Supply。
               </p>
               {filename ? (
                 <p className="mt-1 text-emerald-700/80">文件：{filename}</p>
